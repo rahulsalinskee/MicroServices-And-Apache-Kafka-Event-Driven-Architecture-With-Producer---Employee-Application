@@ -33,7 +33,9 @@ bld/
 [Ll]og/
 [Ll]ogs/
 # Exception: Include the Log class library project
+!Application.Logs/
 !Application.Logs/EmployeeApplication.Log/
+!Application.Logs/EmployeeApplication.Log/**
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
