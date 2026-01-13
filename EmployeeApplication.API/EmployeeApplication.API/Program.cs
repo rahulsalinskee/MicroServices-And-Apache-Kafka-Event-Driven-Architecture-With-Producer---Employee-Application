@@ -1,28 +1,50 @@
+using EmployeeApplication.Log;
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+/* Get Employee Log */
+var employeeLog = LogConfiguration.GenerateEmployeeLog();
 
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+Log.Logger = employeeLog;
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+try
 {
-    app.MapOpenApi();
+    builder.Logging.ClearProviders();
+    builder.Logging.AddSerilog(logger: employeeLog);
 
-    app.UseSwaggerUI(option =>
+    // Add services to the container.
+    builder.Services.AddControllers();
+
+    // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+    builder.Services.AddOpenApi();
+
+    var app = builder.Build();
+
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
     {
-        option.SwaggerEndpoint(url: "/openapi/v1.json", name: "Employee Application API");
-    }); 
+        app.MapOpenApi();
+
+        app.UseSwaggerUI(option =>
+        {
+            option.SwaggerEndpoint(url: "/openapi/v1.json", name: "Employee Application API");
+        });
+    }
+
+    app.UseHttpsRedirection();
+
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    app.Run();
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+catch (Exception exception)
+{
+    Log.Fatal(exception, "Application terminated unexpectedly!");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
