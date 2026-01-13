@@ -18,4 +18,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeeApplication.Exception\EmployeeApplication.Exception.csproj" />
+  </ItemGroup>
+
 </Project>
