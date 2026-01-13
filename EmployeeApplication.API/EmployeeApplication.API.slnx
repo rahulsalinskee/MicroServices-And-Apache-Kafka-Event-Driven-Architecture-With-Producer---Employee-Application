@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/Application.APIs/">
+    <Project Path="EmployeeApplication.API/EmployeeApplication.API.csproj" />
+  </Folder>
+  <Folder Name="/Application.DataBaseContexts/">
+    <Project Path="../EmployeeApplication.DataBaseContext/EmployeeApplication.DataBaseContext.csproj" />
+  </Folder>
+  <Folder Name="/Application.Exceptions/">
+    <Project Path="../EmployeeApplication.Exception/EmployeeApplication.Exception.csproj" />
+  </Folder>
+  <Folder Name="/Application.Logs/">
+    <Project Path="../EmployeeApplication.Log/EmployeeApplication.Log.csproj" />
+  </Folder>
+  <Folder Name="/Application.Models/">
+    <Project Path="../EmployeeApplication.Model/EmployeeApplication.Model.csproj" />
+  </Folder>
+  <Folder Name="/Application.Repositories/">
+    <Project Path="../EmployeeApplication.Repository/EmployeeApplication.Repository.csproj" />
+  </Folder>
+</Solution>
