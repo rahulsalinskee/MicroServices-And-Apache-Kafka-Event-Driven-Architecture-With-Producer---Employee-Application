@@ -1,3 +1,4 @@
+using EmployeeApplication.Exception;
 using EmployeeApplication.Log;
 using Serilog;
 
@@ -31,6 +32,8 @@ try
             option.SwaggerEndpoint(url: "/openapi/v1.json", name: "Employee Application API");
         });
     }
+
+    app.UseMiddleware<GlobalExceptionHandler>();
 
     app.UseHttpsRedirection();
 
