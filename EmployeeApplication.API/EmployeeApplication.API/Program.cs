@@ -12,6 +12,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+
+    app.UseSwaggerUI(option =>
+    {
+        option.SwaggerEndpoint(url: "/openapi/v1.json", name: "Employee Application API");
+    }); 
 }
 
 app.UseHttpsRedirection();
