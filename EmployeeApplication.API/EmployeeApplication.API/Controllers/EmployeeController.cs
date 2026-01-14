@@ -10,7 +10,7 @@ namespace EmployeeApplication.API.Controllers
         [HttpGet]
         public IActionResult Getemployees()
         {
-            throw new System.Exception("Log Testing!");
+            return NoContent();
         }
     }
 }
