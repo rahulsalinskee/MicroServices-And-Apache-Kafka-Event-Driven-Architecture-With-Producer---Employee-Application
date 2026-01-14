@@ -2,6 +2,8 @@ using EmployeeApplication.DataBaseContext.Context;
 using EmployeeApplication.DataBaseContext.DbConfiguration;
 using EmployeeApplication.Exception;
 using EmployeeApplication.Log;
+using EmployeeApplication.Repository.Repository.Implementations;
+using EmployeeApplication.Repository.Repository.Services;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -27,6 +29,8 @@ try
         option.UseSqlServer(builder.Configuration.GetConnectionString(name: "EmployeeApplicationDbConnectionString"));
 
     });
+
+    builder.Services.AddScoped<IEmployeeApplicationService, EmployeeApplicationImplementation>();
 
     // Add services to the container.
     builder.Services.AddControllers();
