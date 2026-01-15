@@ -30,7 +30,7 @@ namespace EmployeeApplication.API.Controllers
             }
             else
             {
-                this._logger.LogError("Error fetching employees: {Message}", response.Message);
+                this._logger.LogError("Error fetching employees: {Message} at {When}", response.Message, response.DateTimeOnFailure);
                 return StatusCode(StatusCodes.Status500InternalServerError, response);
             }
         }
@@ -46,7 +46,7 @@ namespace EmployeeApplication.API.Controllers
             }
             else
             {
-                this._logger.LogError("Error fetching employee by ID {Id}: {Message}", id, response.Message);
+                this._logger.LogError("Error fetching employee by ID {Id}: {Message} {When}", id, response.Message, response.DateTimeOnFailure);
                 return StatusCode(StatusCodes.Status500InternalServerError, response);
             }
         }
@@ -63,7 +63,7 @@ namespace EmployeeApplication.API.Controllers
             }
             else
             {
-                this._logger.LogError("Error creating employee: {Message}", response.Message);
+                this._logger.LogError("Error creating employee: {Message} {When}", response.Message, response.DateTimeOnFailure);
                 return StatusCode(StatusCodes.Status500InternalServerError, response);
             }
         }
@@ -80,7 +80,7 @@ namespace EmployeeApplication.API.Controllers
             }
             else
             {
-                this._logger.LogError("Error updating employee with ID {Id}: {Message}", id, response.Message);
+                this._logger.LogError("Error updating employee with ID {Id}: {Message} {When}", id, response.Message, response.DateTimeOnFailure);
                 return StatusCode(StatusCodes.Status500InternalServerError, response);
             }
         }
@@ -96,7 +96,7 @@ namespace EmployeeApplication.API.Controllers
             }
             else
             {
-                this._logger.LogError("Error deleting employee with ID {Id}: {Message}", id, response.Message);
+                this._logger.LogError("Error deleting employee with ID {Id}: {Message} {When}", id, response.Message, response.DateTimeOnFailure);
                 return StatusCode(StatusCodes.Status500InternalServerError, response);
             }
         }

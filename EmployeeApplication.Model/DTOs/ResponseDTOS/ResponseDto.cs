@@ -11,5 +11,7 @@ namespace EmployeeApplication.Model.DTOs.ResponseDTOS
         public bool IsSuccess { get; set; } = false;
 
         public string Message { get; set; } = string.Empty;
+
+        public DateTime DateTimeOnFailure { get; set; } = default;
     }
 }

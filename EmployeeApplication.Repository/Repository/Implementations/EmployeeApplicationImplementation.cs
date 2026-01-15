@@ -33,6 +33,7 @@ namespace EmployeeApplication.Repository.Repository.Implementations
                     Result = null,
                     IsSuccess = false,
                     Message = applicationError.Message,
+                    DateTimeOnFailure = applicationError.When,
                 };
             }
 
@@ -52,6 +53,7 @@ namespace EmployeeApplication.Repository.Repository.Implementations
                     Result = null,
                     IsSuccess = false,
                     Message = applicationError.Message,
+                    DateTimeOnFailure = applicationError.When,
                 };
             }
 
@@ -92,6 +94,7 @@ namespace EmployeeApplication.Repository.Repository.Implementations
                     Result = null,
                     IsSuccess = false,
                     Message = applicationError.Message,
+                    DateTimeOnFailure = applicationError.When,
                 };
             }
 
@@ -111,6 +114,7 @@ namespace EmployeeApplication.Repository.Repository.Implementations
                     Result = null,
                     IsSuccess = false,
                     Message = applicationError.Message,
+                    DateTimeOnFailure = applicationError.When,
                 };
             }
 
@@ -150,6 +154,7 @@ namespace EmployeeApplication.Repository.Repository.Implementations
                     Result = null,
                     IsSuccess = false,
                     Message = applicationError.Message,
+                    DateTimeOnFailure = applicationError.When,
                 };
             }
 
@@ -166,7 +171,7 @@ namespace EmployeeApplication.Repository.Repository.Implementations
         public async Task<ResponseDto> GetEmployeesAsync()
         {
             var employees = await this._employeeApplicationDbContext.Employees.ToListAsync();
-
+            employees = null;
             IList<EmployeeDto> employeesDto = [];
 
             if (employees is null || !employees.Any())
@@ -183,6 +188,7 @@ namespace EmployeeApplication.Repository.Repository.Implementations
                     Result = null,
                     IsSuccess = false,
                     Message = applicationError.Message,
+                    DateTimeOnFailure = applicationError.When,
                 };
             }
 
@@ -193,9 +199,9 @@ namespace EmployeeApplication.Repository.Repository.Implementations
             }
             return new ResponseDto()
             {
-                Result = employeesDto,
                 IsSuccess = true,
                 Message = "Success",
+                Result = employeesDto,
             };
         }
 
@@ -215,6 +221,7 @@ namespace EmployeeApplication.Repository.Repository.Implementations
                     Result = null,
                     IsSuccess = false,
                     Message = applicationError.Message,
+                    DateTimeOnFailure = applicationError.When,
                 };
             }
 
@@ -234,6 +241,7 @@ namespace EmployeeApplication.Repository.Repository.Implementations
                     Result = null,
                     IsSuccess = false,
                     Message = applicationError.Message,
+                    DateTimeOnFailure = applicationError.When,
                 };
             }
 
@@ -251,6 +259,7 @@ namespace EmployeeApplication.Repository.Repository.Implementations
                     Result = null,
                     IsSuccess = false,
                     Message = applicationError.Message,
+                    DateTimeOnFailure = applicationError.When,
                 };
             }
 
@@ -268,6 +277,7 @@ namespace EmployeeApplication.Repository.Repository.Implementations
                     Result = null,
                     IsSuccess = false,
                     Message = applicationError.Message,
+                    DateTimeOnFailure = applicationError.When,
                 };
             }
 
