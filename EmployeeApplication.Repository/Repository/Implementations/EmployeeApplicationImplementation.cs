@@ -1,10 +1,12 @@
-﻿using EmployeeApplication.DataBaseContext.Context;
+﻿using Confluent.Kafka;
+using EmployeeApplication.DataBaseContext.Context;
 using EmployeeApplication.Model.DTOs.EmployeeDTOs;
 using EmployeeApplication.Model.DTOs.ResponseDTOS;
 using EmployeeApplication.Model.EmployeeMapping;
 using EmployeeApplication.Model.Models;
 using EmployeeApplication.Repository.Repository.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace EmployeeApplication.Repository.Repository.Implementations
 {
@@ -69,6 +71,23 @@ namespace EmployeeApplication.Repository.Repository.Implementations
             await this._employeeApplicationDbContext.Employees.AddAsync(employee);
             await this._employeeApplicationDbContext.SaveChangesAsync();
             var addedEmployeeDto = employee.ConvertEmployeeToEmployeeDtoExtension();
+
+            var message = new Message<string, string>()
+            {
+                Key = addedEmployeeDto.Id.ToString(),
+                Value = JsonSerializer.Serialize(addedEmployeeDto),
+            };
+
+            ProducerConfig producerConfiguration = new()
+            {
+                BootstrapServers = "localhost:9094",
+                Acks = Acks.All,
+            };
+
+            IProducer<string, string> producerBuilder = new ProducerBuilder<string, string>(producerConfiguration).Build();
+
+            await producerBuilder.ProduceAsync(topic: "employee-topic", message: message);
+            producerBuilder.Dispose();
 
             return new ResponseDto()
             {
@@ -171,7 +190,7 @@ namespace EmployeeApplication.Repository.Repository.Implementations
         public async Task<ResponseDto> GetEmployeesAsync()
         {
             var employees = await this._employeeApplicationDbContext.Employees.ToListAsync();
-            employees = null;
+            
             IList<EmployeeDto> employeesDto = [];
 
             if (employees is null || !employees.Any())
