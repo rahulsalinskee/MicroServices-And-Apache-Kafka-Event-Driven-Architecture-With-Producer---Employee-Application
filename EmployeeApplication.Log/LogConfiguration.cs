@@ -14,8 +14,8 @@ namespace EmployeeApplication.Log
 
         public static ILogger GenerateEmployeeLog()
         {
-            var logFilePathForProductApi = GetFilePath(logApiDirName: EMPLOYEE_LOG_DIRECTORY, logFileName: EMPLOYEE_LOG_FILE_NAME);
-            return CreateLog(logPath: logFilePathForProductApi, projectName: EMPLOYEE_PROJECT_NAME);
+            var logFilePathForEmployeeApplicationApi = GetFilePath(logApiDirName: EMPLOYEE_LOG_DIRECTORY, logFileName: EMPLOYEE_LOG_FILE_NAME);
+            return CreateLog(logPath: logFilePathForEmployeeApplicationApi, projectName: EMPLOYEE_PROJECT_NAME);
         }
 
         private static string GetFilePath(string logApiDirName, string logFileName)
