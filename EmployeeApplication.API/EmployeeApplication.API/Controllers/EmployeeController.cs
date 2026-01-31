@@ -1,8 +1,8 @@
 ﻿using EmployeeApplication.API.ServerSideValidation;
 using EmployeeApplication.Model.DTOs.EmployeeDTOs;
 using EmployeeApplication.Repository.Repository.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace EmployeeApplication.API.Controllers
 {
@@ -53,6 +53,7 @@ namespace EmployeeApplication.API.Controllers
 
         [HttpPost("create")]
         [ModelValidation]
+        [EnableRateLimiting("StrictPolicy")]
         public async Task<IActionResult> CreateEmployee([FromBody] AddEmployeeDto addEmployeeDto)
         {
             var response = await this._employeeApplicationService.CreateEmployeeAsync(addEmployeeDto: addEmployeeDto);
@@ -70,6 +71,7 @@ namespace EmployeeApplication.API.Controllers
 
         [HttpPut("update/{id}")]
         [ModelValidation]
+        [EnableRateLimiting("StrictPolicy")]
         public async Task<IActionResult> UpdateEmployee([FromRoute] Guid id, [FromBody] UpdateEmployeeDto updateEmployeeDto)
         {
             var response = await this._employeeApplicationService.UpdateEmployeeAsync(id: id, updateEmployeeDto: updateEmployeeDto);
@@ -86,6 +88,7 @@ namespace EmployeeApplication.API.Controllers
         }
 
         [HttpDelete("delete/{id}")]
+        [EnableRateLimiting("StrictPolicy")]
         public async Task<IActionResult> DeleteEmployee([FromRoute] Guid id)
         {
             var response = await this._employeeApplicationService.DeleteEmployeeAsync(id: id);
