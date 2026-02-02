@@ -1,3 +1,4 @@
+using EmployeeApplication.API.AttackProtections.CorsIntegration;
 using EmployeeApplication.API.AttackProtections.CSRFProtection;
 using EmployeeApplication.API.AttackProtections.RateLimitation;
 using EmployeeApplication.DataBaseContext.Context;
@@ -47,6 +48,10 @@ try
     builder.Services.AddAppAntiForgeryExtension();
     /* --- Antiforgery END: CSRF Attack Prevention --- */
 
+    /* -- CORS START: Service Registration */
+    builder.Services.AddCorsServicesExtension(builder.Configuration);
+    /* -- CORS STOP: Service Registration */
+
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
@@ -65,6 +70,11 @@ try
     app.UseHttpsRedirection();
 
     app.UseRouting();
+
+    /* --- CORS Middleware START --- */
+    /* Must be between UseRouting and UseRateLimiter/UseAuthorization */
+    app.UseCorsMiddlewareExtension();
+    /* --- CORS Middleware END --- */
 
     /* --- Antiforgery Middleware START --- */
     /* This middleware provides the token to the client via a cookie */
