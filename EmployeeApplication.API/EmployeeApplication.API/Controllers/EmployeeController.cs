@@ -53,6 +53,7 @@ namespace EmployeeApplication.API.Controllers
 
         [HttpPost("create")]
         [ModelValidation]
+        [ValidateAntiForgeryToken]
         [EnableRateLimiting("StrictPolicy")]
         public async Task<IActionResult> CreateEmployee([FromBody] AddEmployeeDto addEmployeeDto)
         {
@@ -71,6 +72,7 @@ namespace EmployeeApplication.API.Controllers
 
         [HttpPut("update/{id}")]
         [ModelValidation]
+        [ValidateAntiForgeryToken]
         [EnableRateLimiting("StrictPolicy")]
         public async Task<IActionResult> UpdateEmployee([FromRoute] Guid id, [FromBody] UpdateEmployeeDto updateEmployeeDto)
         {
@@ -88,6 +90,7 @@ namespace EmployeeApplication.API.Controllers
         }
 
         [HttpDelete("delete/{id}")]
+        [ValidateAntiForgeryToken]
         [EnableRateLimiting("StrictPolicy")]
         public async Task<IActionResult> DeleteEmployee([FromRoute] Guid id)
         {

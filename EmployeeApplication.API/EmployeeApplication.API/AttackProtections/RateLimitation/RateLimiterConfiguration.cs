@@ -2,7 +2,7 @@
 using EmployeeApplication.Model.Models;
 using System.Threading.RateLimiting;
 
-namespace EmployeeApplication.API.RateLimitation
+namespace EmployeeApplication.API.AttackProtections.RateLimitation
 {
     public static class RateLimiterConfiguration
     {

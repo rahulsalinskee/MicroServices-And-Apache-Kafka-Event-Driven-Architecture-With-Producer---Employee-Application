@@ -1,15 +1,13 @@
-using EmployeeApplication.API.RateLimitation;
+using EmployeeApplication.API.AttackProtections.CSRFProtection;
+using EmployeeApplication.API.AttackProtections.RateLimitation;
 using EmployeeApplication.DataBaseContext.Context;
 using EmployeeApplication.DataBaseContext.DbConfiguration;
 using EmployeeApplication.Exception;
 using EmployeeApplication.Log;
-using EmployeeApplication.Model.DTOs.ResponseDTOS;
-using EmployeeApplication.Model.Models;
 using EmployeeApplication.Repository.Repository.Implementations;
 using EmployeeApplication.Repository.Repository.Services;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +43,10 @@ try
     builder.Services.AddRateLimitingServicesExtension();
     /* --- Rate Limiting END --- */
 
+    /* --- Antiforgery START: Configure Services For CSRF Attack Prevention --- */
+    builder.Services.AddAppAntiForgeryExtension();
+    /* --- Antiforgery END: CSRF Attack Prevention --- */
+
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
@@ -61,6 +63,13 @@ try
     app.UseMiddleware<GlobalExceptionHandler>();
 
     app.UseHttpsRedirection();
+
+    app.UseRouting();
+
+    /* --- Antiforgery Middleware START --- */
+    /* This middleware provides the token to the client via a cookie */
+    app.UseAntiForgeryTokenMiddlewareExtension();
+    /* --- Antiforgery Middleware END --- */
 
     /* --- Enable Rate Limiting Middleware : START --- */
     /* Place this AFTER HttpsRedirection but BEFORE Authorization/Controllers */
