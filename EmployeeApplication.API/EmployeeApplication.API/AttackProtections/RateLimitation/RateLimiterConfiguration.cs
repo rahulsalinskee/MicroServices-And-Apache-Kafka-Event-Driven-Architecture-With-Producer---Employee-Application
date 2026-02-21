@@ -29,8 +29,9 @@ namespace EmployeeApplication.API.AttackProtections.RateLimitation
                         {
                             /* Logic: Allow 2 request per 1 minute per IP (Global Default) */
                             AutoReplenishment = true,
-                            PermitLimit = 2,
+                            PermitLimit = 10,
                             Window = TimeSpan.FromMinutes(1),
+                            QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
                             QueueLimit = 0
                         }
                     );
@@ -45,8 +46,9 @@ namespace EmployeeApplication.API.AttackProtections.RateLimitation
 
                     return RateLimitPartition.GetFixedWindowLimiter(remoteIp, _ => new FixedWindowRateLimiterOptions
                     {
-                        PermitLimit = 1, // Only 5 creates allowed
+                        PermitLimit = 10, // Only 5 creates allowed
                         Window = TimeSpan.FromMinutes(1), // per minute
+                        QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
                         QueueLimit = 0
                     });
                 });
